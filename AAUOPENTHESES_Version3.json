@@ -1,0 +1,284 @@
+{
+  "title": "AAUOPENTHESES_Version3",
+  "description": "",
+  "category": null,
+  "primaryDriverSystemNames": [
+    "Publisher"
+  ],
+  "templateConfigurationKey": null,
+  "templateType": "NONE",
+  "sharingType": "NOT_SHARED",
+  "sharedWithUserIds": [],
+  "shareSnapshotsWithUserIds": [],
+  "sendNotifications": true,
+  "schedulingDefinition": null,
+  "locale": "da_DK",
+  "dataTableExportFormat": "CSV",
+  "shareDataStorySnapshot": true,
+  "dataTablesToExport": [],
+  "serializedReport": {
+    "version": "5.33.2",
+    "migration": 23,
+    "dataSet": null,
+    "dataSets": [
+      {
+        "id": "3c5a2f7a-8994-f65e-d63d-afdf3a3ca78c",
+        "series": [
+          {
+            "id": "c9672483-8479-d0a2-7320-bfe540b4845f",
+            "systemName": "Publisher",
+            "functions": [
+              {
+                "functionId": "Publisher.project(name)",
+                "type": "PROJECTION",
+                "customLabel": "Navn",
+                "id": "7a3de016-5a2a-236d-49f2-9e845178c7da",
+                "ordering": {
+                  "descending": false,
+                  "index": 0
+                }
+              }
+            ],
+            "filters": [
+              {
+                "filterId": "Publisher.filter(id)",
+                "groupRef": "data-set-group",
+                "hierarchicalContent": {
+                  "ids": [
+                    "225217346",
+                    "695515856"
+                  ],
+                  "limitationType": "MATCH",
+                  "limitSelectionToFirstId": false,
+                  "includeUnitsBelow": true,
+                  "asMultiId": false
+                }
+              }
+            ],
+            "filterExpression": {
+              "version": 2,
+              "expression": [
+                {
+                  "exprId": "8a66d5a1-b0b2-bd38-bb24-454244bfeb42",
+                  "expr": "VALUE",
+                  "ref": "Publisher.filter(id)",
+                  "groupIdRef": "data-set-group"
+                },
+                {
+                  "exprId": "data-set-group",
+                  "expr": "GROUP",
+                  "exprGroupType": "EXPR"
+                }
+              ],
+              "advancedFiltersEnabled": false
+            }
+          },
+          {
+            "id": "33bf1b62-6929-ac69-f026-f7a9d01bf57a",
+            "systemName": "ResearchOutput",
+            "driverRelation": {
+              "driverSeriesId": "c9672483-8479-d0a2-7320-bfe540b4845f",
+              "semanticRelationshipId": "Publisher.publisherOf(ResearchOutput)"
+            },
+            "functions": [
+              {
+                "id": "87584f3a-a0c3-bb49-5554-94798d84b276",
+                "functionId": "ResearchOutput.project(title)",
+                "type": "PROJECTION",
+                "customLabel": "title",
+                "emission": {
+                  "sampleSize": 1,
+                  "delimiter": ""
+                },
+                "expanded": true
+              },
+              {
+                "id": "a169896c-2c7d-0e04-f02c-3ebad2c659ee",
+                "functionId": "ResearchOutput.project(subtitle)",
+                "type": "PROJECTION",
+                "customLabel": "subtitle"
+              },
+              {
+                "id": "f9447478-b048-9e93-ed88-24890428f925",
+                "functionId": "ResearchOutput.project(contributorsNameFirstLast)",
+                "type": "PROJECTION",
+                "customLabel": "author"
+              },
+              {
+                "id": "65490fab-4bf7-ad40-6aef-3e136acb52f5",
+                "functionId": "ResearchOutput.project(currentPublicationStatusYear)",
+                "type": "PROJECTION",
+                "customLabel": "year"
+              },
+              {
+                "id": "926f4db1-eaf6-744e-745f-418c78415cdb",
+                "functionId": "ResearchOutput.project(bookSeriesTitle)",
+                "type": "PROJECTION",
+                "customLabel": "series"
+              },
+              {
+                "id": "42944873-8415-742d-b454-4ce5ee058bc8",
+                "functionId": "ResearchOutput.project(uuid)",
+                "type": "PROJECTION",
+                "customLabel": "url"
+              },
+              {
+                "id": "d25889e9-c5b5-9e0e-e59f-be894a0715ba",
+                "functionId": "ResearchOutput.project(createdTime)",
+                "type": "PROJECTION",
+                "customLabel": "created",
+                "emission": {
+                  "renderFormat": "iso-8601",
+                  "addZoneInfoToDates": false
+                }
+              },
+              {
+                "id": "c09ced2a-1c4f-06ed-5a83-c2add4b2ef6b",
+                "functionId": "ResearchOutput.project(electronicVersionDOILink)",
+                "type": "PROJECTION",
+                "customLabel": "doi"
+              },
+              {
+                "id": "afc6f3c8-68da-d794-cf8d-12529c62c503",
+                "functionId": "ResearchOutput.project(keywords:keywordContainers:freekeywords)",
+                "type": "PROJECTION",
+                "customLabel": "keywords",
+                "emission": {
+                  "sampleSize": 100,
+                  "delimiter": " // "
+                },
+                "expanded": false
+              }
+            ],
+            "filters": [
+              {
+                "filterId": "ResearchOutput.filter(visibility)",
+                "groupRef": "data-set-group",
+                "selectMany": {
+                  "limitationType": "MATCH",
+                  "mode": "ELIMINATE_ROWS",
+                  "values": [
+                    "FREE"
+                  ]
+                }
+              },
+              {
+                "filterId": "ResearchOutput.filter(hasElectronicVersionOpenFile)",
+                "groupRef": "data-set-group",
+                "selectOne": {
+                  "limitationType": "MATCH",
+                  "value": "HAS_OPEN_FILE"
+                }
+              },
+              {
+                "filterId": "ResearchOutput.filter(type)",
+                "groupRef": "data-set-group",
+                "selectMany": {
+                  "limitationType": "MATCH",
+                  "mode": "ELIMINATE_ROWS",
+                  "values": [
+                    "/dk/atira/pure/researchoutput/researchoutputtypes/thesis/phd_thesis"
+                  ]
+                }
+              }
+            ],
+            "filterExpression": {
+              "version": 2,
+              "expression": [
+                {
+                  "exprId": "9a471f52-da30-2eaf-2ac1-5de772803110",
+                  "expr": "VALUE",
+                  "ref": "ResearchOutput.filter(visibility)",
+                  "groupIdRef": "data-set-group"
+                },
+                {
+                  "exprId": "9a471f52-da30-2eaf-2ac1-5de772803110-token",
+                  "expr": "TOKEN",
+                  "exprTokenType": "AND",
+                  "groupIdRef": "data-set-group"
+                },
+                {
+                  "exprId": "a0c0e1ce-13fe-f4d6-ef70-99397e01bfde",
+                  "expr": "VALUE",
+                  "ref": "ResearchOutput.filter(hasElectronicVersionOpenFile)",
+                  "groupIdRef": "data-set-group"
+                },
+                {
+                  "exprId": "a0c0e1ce-13fe-f4d6-ef70-99397e01bfde-token",
+                  "expr": "TOKEN",
+                  "exprTokenType": "AND",
+                  "groupIdRef": "data-set-group"
+                },
+                {
+                  "exprId": "33177e92-95b0-b644-adaf-4ea1a934515e",
+                  "expr": "VALUE",
+                  "ref": "ResearchOutput.filter(type)",
+                  "groupIdRef": "data-set-group"
+                },
+                {
+                  "exprId": "data-set-group",
+                  "expr": "GROUP",
+                  "exprGroupType": "EXPR"
+                }
+              ],
+              "advancedFiltersEnabled": false
+            }
+          },
+          {
+            "id": "65a347c5-bb10-723f-804e-3aacba256259",
+            "driverRelation": {
+              "driverSeriesId": "33bf1b62-6929-ac69-f026-f7a9d01bf57a",
+              "semanticRelationshipId": "ResearchOutput.contributors(Person)"
+            },
+            "systemName": "Person",
+            "functions": [
+              {
+                "id": "cc238905-9268-f7b4-ec0e-a30cacae7729",
+                "type": "PROJECTION",
+                "functionId": "Person.project(ORCID)",
+                "customLabel": "orcid"
+              }
+            ]
+          },
+          {
+            "id": "a21697ad-0b4d-3b70-3b3a-cd866ace5304",
+            "driverRelation": {
+              "driverSeriesId": "33bf1b62-6929-ac69-f026-f7a9d01bf57a",
+              "semanticRelationshipId": "ResearchOutput.supervisors(ReportingThesisSupervisor)"
+            },
+            "systemName": "ReportingThesisSupervisor",
+            "functions": [
+              {
+                "id": "fbade8b8-88c1-5703-455c-33ca4ea27c52",
+                "functionId": "ReportingThesisSupervisor.project(contributorsNameFirstLast)",
+                "type": "PROJECTION",
+                "customLabel": "supervisor",
+                "emission": {
+                  "sampleSize": 100,
+                  "delimiter": " // "
+                },
+                "expanded": false
+              }
+            ],
+            "filters": [],
+            "filterExpression": {
+              "version": 2,
+              "expression": []
+            }
+          }
+        ],
+        "name": "Datatabel (2)"
+      }
+    ],
+    "dataStory": {
+      "modelType": "dataStoryType",
+      "layout": "list",
+      "grid": {
+        "strategy": "auto",
+        "positions": null
+      },
+      "elements": []
+    }
+  },
+  "idToSave": "800177663"
+}

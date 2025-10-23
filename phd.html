@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Open Access PhD Theses from Aalborg University">
+    <meta property="og:description" content="Welcome to the AAU Open Access PhD Theses collection. Explore doctoral research from Aalborg University, and download through VBN">
+    <meta property="og:image" content="https://homes.aub.aau.dk/sv/themes/phd/meta.png">
+    <meta property="og:url" content="https://homes.aub.aau.dk/sv/themes/phd/phd.html">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="https://www.resources.aau.dk/design2013/images/aaufavicon.ico?v=2" type="image/x-icon">
+    <title>PhD Theses from Aalborg University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.css">
+    <style>
+* { box-sizing: border-box; }
+body { overflow-x: hidden; width: 100%; max-width: 100vw; font-family: 'Barlow', sans-serif; background-color: #f5f5f5; color: #333; margin: 0; padding: 0; }
+
+header { background: #211a52; color: white; padding: 15px 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.header-content { max-width: 1600px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.header-left { display: flex; align-items: center; gap: 20px; flex: 1; }
+.header-logo img { height: 50px; width: auto; }
+.header-text-block { display: flex; flex-direction: column; }
+.header-text { font-size: 1.5rem; font-weight: 600; margin: 0; line-height: 1.2; }
+.header-subtitle { font-size: 0.85rem; color: #e0e0e0; margin: 3px 0 0 0; }
+.header-right { display: flex; align-items: center; gap: 15px; }
+#thesis-counter { font-size: 1.3rem; font-weight: 600; color: #4db8e8; white-space: nowrap; }
+.data-updated { font-size: 0.75rem; color: #bbb; margin-top: 3px; font-weight: 400; }
+.info-btn { background: transparent; border: 2px solid white; color: white; padding: 6px 14px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s; }
+.info-btn:hover { background: white; color: #211a52; }
+
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+.modal.show { display: block; }
+.modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 12px; max-width: 700px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-header h2 { margin: 0; color: #211a52; }
+.close-modal { background: none; border: none; font-size: 2rem; cursor: pointer; color: #666; line-height: 1; }
+.modal-body { color: #555; line-height: 1.6; }
+.modal-body h3 { color: #211a52; margin-top: 20px; font-size: 1.1rem; }
+.modal-body ul { margin: 10px 0; padding-left: 25px; }
+.modal-body li { margin: 5px 0; }
+
+.main-container { display: flex; max-width: 1600px; margin: 0 auto; min-height: calc(100vh - 90px); }
+
+.sidebar { width: 280px; background: white; padding: 20px; box-shadow: 2px 0 8px rgba(0,0,0,0.05); position: sticky; top: 0; height: calc(100vh - 80px); overflow-y: auto; }
+.filter-section { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #e8e8e8; }
+.filter-section:last-of-type { border-bottom: none; }
+.filter-section label { display: block; font-weight: 600; color: #211a52; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.search-bar { width: 100%; padding: 9px 12px; border-radius: 5px; border: 1px solid #d0d0d0; font-size: 0.9rem; font-family: 'Barlow', sans-serif; transition: border-color 0.3s; }
+.search-bar:focus { outline: none; border-color: #211a52; box-shadow: 0 0 0 3px rgba(33,26,82,0.1); }
+.select-filter { width: 100%; padding: 9px 12px; border-radius: 5px; border: 1px solid #d0d0d0; font-size: 0.9rem; font-family: 'Barlow', sans-serif; background: white; cursor: pointer; transition: border-color 0.3s; }
+.select-filter:focus { outline: none; border-color: #211a52; box-shadow: 0 0 0 3px rgba(33,26,82,0.1); }
+
+.slider-container { margin-top: 15px; padding: 10px; background: #f8f8f8; border-radius: 6px; }
+.slider-range-display { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.9rem; color: #211a52; font-weight: 600; }
+.slider-range-display span { background: white; padding: 5px 12px; border-radius: 4px; border: 2px solid #211a52; min-width: 60px; text-align: center; }
+.range-slider { margin: 0 5px; }
+.noUi-target { background: #d0d0d0; border-radius: 4px; border: none; box-shadow: none; height: 8px; }
+.noUi-connect { background: linear-gradient(90deg, #211a52 0%, #2d2463 100%); }
+.noUi-handle { background: white; border: 3px solid #211a52; border-radius: 50%; box-shadow: 0 3px 6px rgba(0,0,0,0.2); cursor: grab; width: 22px; height: 22px; top: -7px; transition: all 0.2s; }
+.noUi-handle:active { cursor: grabbing; transform: scale(1.15); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+.noUi-handle:before, .noUi-handle:after { display: none; }
+.noUi-tooltip { display: none; }
+
+.supervisor-search-container { position: relative; }
+.supervisor-search { width: 100%; padding: 9px 12px; border-radius: 5px; border: 1px solid #d0d0d0; font-size: 0.9rem; font-family: 'Barlow', sans-serif; }
+.supervisor-search:focus { outline: none; border-color: #211a52; box-shadow: 0 0 0 3px rgba(33,26,82,0.1); }
+.supervisor-suggestions { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #211a52; border-top: none; border-radius: 0 0 5px 5px; max-height: 180px; overflow-y: auto; z-index: 100; display: none; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+.supervisor-suggestions.show { display: block; }
+.supervisor-suggestion { padding: 8px 12px; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid #f0f0f0; }
+.supervisor-suggestion:last-child { border-bottom: none; }
+.supervisor-suggestion:hover { background: #f8f8f8; }
+.supervisor-tag { display: inline-block; padding: 4px 10px; margin: 5px 5px 0 0; background: #211a52; color: white; border-radius: 12px; font-size: 0.8rem; }
+.supervisor-tag-close { margin-left: 6px; cursor: pointer; font-weight: bold; }
+
+.active-filters { margin: 15px 0 20px 0; padding: 12px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; display: none; }
+.active-filters.show { display: block; }
+.active-filters-label { font-size: 0.8rem; font-weight: 600; color: #856404; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.active-filter-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; margin: 3px; background: #211a52; color: white; border-radius: 15px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+.active-filter-tag:hover { background: #2d2463; transform: scale(1.05); }
+.filter-remove { font-weight: bold; font-size: 1.1rem; line-height: 1; }
+
+.btn { width: 100%; padding: 9px 16px; border: none; border-radius: 5px; font-size: 0.9rem; font-weight: 600; font-family: 'Barlow', sans-serif; cursor: pointer; transition: all 0.3s; }
+.btn-reset { background: #e63946; color: white; margin-bottom: 10px; }
+.btn-reset:hover { background: #d62828; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(214,40,40,0.3); }
+.btn-link { background: #211a52; color: white; text-decoration: none; display: block; text-align: center; }
+.btn-link:hover { background: #2d2463; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(33,26,82,0.3); }
+
+.content { flex: 1; padding: 25px; background: #f5f5f5; }
+
+.chart-section { background: white; border-radius: 8px; padding: 18px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+.chart-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-bottom: 12px; }
+.chart-header h2 { margin: 0; font-size: 1.1rem; color: #211a52; font-weight: 600; }
+.chart-toggle { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #211a52; transition: transform 0.3s; }
+.chart-toggle.collapsed { transform: rotate(-90deg); }
+.chart-container { overflow: hidden; transition: max-height 0.3s ease; }
+.chart-container.collapsed { max-height: 0; }
+.chart-container canvas { max-height: 220px; }
+
+/* Topic Explorer */
+.topic-section { background: white; border-radius: 8px; padding: 18px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+.topic-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-bottom: 12px; }
+.topic-header h2 { margin: 0; font-size: 1.1rem; color: #211a52; font-weight: 600; }
+.topic-toggle { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #211a52; transition: transform 0.3s; }
+.topic-toggle.collapsed { transform: rotate(-90deg); }
+.topic-container { overflow: hidden; transition: max-height 0.3s ease; }
+.topic-container.collapsed { max-height: 0; }
+.topic-cloud { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; padding: 10px; }
+.topic-bubble { display: inline-block; padding: 8px 16px; background: #f0f0f0; color: #211a52; border-radius: 20px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s; border: 2px solid transparent; }
+.topic-bubble:hover { background: #e0e0e0; transform: scale(1.05); }
+.topic-bubble.active { background: #211a52; color: white; border-color: #211a52; }
+.topic-bubble.size-large { font-size: 1rem; padding: 10px 20px; }
+.topic-bubble.size-medium { font-size: 0.9rem; padding: 9px 18px; }
+.topic-bubble.size-small { font-size: 0.8rem; padding: 7px 14px; }
+.topic-search-container { 
+    position: relative; 
+    margin-bottom: 12px; 
+}
+.topic-search { 
+    width: 100%; 
+    padding: 9px 12px; 
+    border-radius: 5px; 
+    border: 1px solid #d0d0d0; 
+    font-size: 0.9rem; 
+    font-family: 'Barlow', sans-serif; 
+}
+.topic-search:focus { 
+    outline: none; 
+    border-color: #211a52; 
+    box-shadow: 0 0 0 3px rgba(33,26,82,0.1); 
+}
+.topic-suggestions { 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    right: 0; 
+    background: white; 
+    border: 1px solid #211a52; 
+    border-top: none; 
+    border-radius: 0 0 5px 5px; 
+    max-height: 200px; 
+    overflow-y: auto; 
+    z-index: 100; 
+    display: none; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+}
+.topic-suggestions.show { 
+    display: block; 
+}
+.topic-suggestion { 
+    padding: 8px 12px; 
+    cursor: pointer; 
+    font-size: 0.85rem; 
+    border-bottom: 1px solid #f0f0f0; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.topic-suggestion:last-child { 
+    border-bottom: none; 
+}
+.topic-suggestion:hover { 
+    background: #f8f8f8; 
+}
+.topic-count-badge {
+    background: #e0e0e0;
+    color: #666;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.bubble-count {
+    margin-left: 6px;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    font-weight: 600;
+}
+.show-more-topics-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #f0f0f0;
+    color: #211a52;
+    border: 2px solid #211a52;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 8px;
+}
+.show-more-topics-btn:hover {
+    background: #211a52;
+    color: white;
+}
+.active-topic-indicator {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: #e3f2fd;
+    border-left: 4px solid #211a52;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    display: none;
+}
+.active-topic-indicator.show {
+    display: block;
+}
+.active-topic-text {
+    font-weight: 600;
+    color: #211a52;
+}
+.clear-topic-btn {
+    background: none;
+    border: none;
+    color: #211a52;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 0.85rem;
+    margin-left: 10px;
+}
+
+.pagination { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 25px; }
+.pagination button { padding: 7px 15px; border: 2px solid #211a52; background: white; color: #211a52; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; }
+.pagination button:hover:not(:disabled) { background: #211a52; color: white; }
+.pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+.pagination .page-info { color: #666; font-size: 0.9rem; font-weight: 500; }
+
+.thesis-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; min-height: 500px; }
+.thesis-card { background: white; border-radius: 8px; padding: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); transition: all 0.3s; display: flex; flex-direction: column; border-left: 4px solid #211a52; }
+.thesis-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.12); }
+.ssh-card { border-left-color: #2C4991; }
+.tech-card { border-left-color: #1F3471; }
+.eng-card { border-left-color: #535254; }
+.health-card { border-left-color: #A22226; }
+.other-card { border-left-color: #007FA3; }
+.new-badge { display: inline-block; background: #4CAF50; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+.thesis-title { font-size: 1.05rem; font-weight: 700; color: #211a52; line-height: 1.3; margin-bottom: 12px; }
+.thesis-info { margin-bottom: 7px; font-size: 0.85rem; color: #555; }
+.thesis-info-label { font-weight: 600; color: #211a52; }
+.external-links { display: flex; gap: 7px; margin: 10px 0; flex-wrap: wrap; }
+.external-link { display: inline-flex; align-items: center; gap: 4px; padding: 4px 9px; background: #f5f5f5; border-radius: 4px; text-decoration: none; color: #211a52; font-size: 0.75rem; font-weight: 600; transition: all 0.3s; }
+.external-link:hover { background: #211a52; color: white; }
+.external-link img { width: 14px; height: 14px; }
+.keywords-section { margin: 10px 0; }
+.keywords-title { font-weight: 600; color: #211a52; font-size: 0.8rem; margin-bottom: 5px; }
+.keywords-container { display: flex; flex-wrap: wrap; gap: 4px; }
+.keyword-tag { display: inline-block; padding: 3px 8px; background: #e8f4f8; color: #0277bd; border-radius: 10px; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+.keyword-tag:hover { background: #0277bd; color: white; transform: scale(1.05); }
+.keyword-tag:active { transform: scale(0.95); }
+.show-more-keywords { color: #0277bd; cursor: pointer; font-size: 0.75rem; font-weight: 600; padding: 3px 8px; display: inline-block; user-select: none; }
+.show-more-keywords:hover { text-decoration: underline; }
+.supervisors-section { margin: 10px 0; font-size: 0.85rem; }
+.supervisors-label { font-weight: 600; color: #211a52; }
+.supervisor-item { display: inline; color: #555; }
+.supervisor-item:not(:last-child)::after { content: " • "; color: #999; }
+.read-more-btn { display: inline-block; margin-top: auto; padding: 9px 18px; background: #211a52; color: white; text-decoration: none; border-radius: 5px; font-weight: 600; text-align: center; font-size: 0.85rem; transition: all 0.3s; }
+.read-more-btn:hover { background: #2d2463; transform: translateY(-1px); }
+
+@media (max-width: 1024px) {
+    .main-container { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; }
+    .header-content { flex-wrap: wrap; }
+}
+.header-logo img {
+  height: 35px;
+  width: auto;
+  vertical-align: middle;
+}
+@media (max-width: 768px) {
+    .header-text { font-size: 1.3rem; }
+    .header-logo img { height: 20px; }
+    .thesis-list { grid-template-columns: 1fr; }
+}
+
+.header-logo {
+  border-right: 1px solid rgba(255,255,255,0.2);
+  padding-right: 1rem;
+}
+
+button:focus, a:focus, input:focus { outline: 3px solid #4db8e8; outline-offset: 2px; }
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 350px; /* tilpas som standardhøjde */
+}
+
+@media (max-width: 600px) {
+    .chart-container {
+        height: 250px;  /* lavere højde på små skærme */
+    }
+}
+
+/* sørg for at modal-indholdet kan scrolles, når det er for langt */
+#info-modal .modal-body {
+    overflow-y: auto;
+    max-height: calc(100vh - 200px); /* træk header/footer og marginer fra viewportens højde */
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <div class="header-logo">
+                    <a href="https://www.en.aau.dk/research/open-publishing" target="_blank">
+                        <img src="OPEN_LEFT_WHITE.png" alt="AAU Open Publishing">
+                    </a>
+                </div>
+                <div class="header-text-block">
+                    <h1 class="header-text">Open Access PhD Theses from Aalborg University</h1>
+                    <p class="header-subtitle">Explore the collection of Open Access PhD Theses from Aalborg University</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div>
+                    <div id="thesis-counter">Loading...</div>
+                    <div class="data-updated" id="data-updated"></div>
+                </div>
+                <button class="info-btn" onclick="showInfo()">ℹ Help</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>How to Use This Site</h2>
+                <button class="close-modal" onclick="closeInfo()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Welcome to the <strong>AAU Open Access PhD Theses</strong> collection. Explore doctoral research from <strong>Aalborg University</strong>, and download through VBN.</p>
+
+                <h3>Search & Filter</h3>
+                <ul>
+                    <li><strong>Search:</strong> Type to search by title, author, or keywords.</li>
+                    <li><strong>Year Range:</strong> Drag the slider to filter by publication year (default: 2014–present).</li>
+                    <li><strong>Series:</strong> Filter by book series.</li>
+                    <li><strong>Supervisor:</strong> Type to search and select supervisors.</li>
+                </ul>
+
+                <h3>Thesis Information</h3>
+                <ul>
+                    <li><strong>View Thesis:</strong> Click <em>View Thesis</em> to open the full record on <strong>VBN</strong>, where you can download the thesis and see additional details such as abstract, collaborators, and related content.</li>
+                    <li><strong>DOI & ORCID:</strong> Click the badges to open the DOI or the author’s ORCID profile (if available).</li>
+                    <li><strong>Keywords:</strong> Click any keyword to filter theses with that keyword (if available).</li>
+                </ul>
+
+                <h3>Charts & Topics</h3>
+                <ul>
+                    <li><strong>Charts:</strong> View thesis distribution by year and series. Click the chart header to collapse or expand.</li>
+                    <li><strong>Topics:</strong> Use the topic tags to browse theses by topics</li>
+                </ul>
+
+                <h3>About Series Normalization</h3>
+                <p>
+                To ensure consistency across theses from different periods and faculty naming conventions,
+                the original <em>series titles</em> from VBN have been <strong>normalized</strong> into a few main categories:
+                </p>
+                <ul>
+                  <li><strong>SSH</strong> – Humanities and Social Sciences</li>
+                  <li><strong>ENG</strong> – Engineering and Science</li>
+                  <li><strong>HEALTH</strong> – Health Sciences</li>
+                  <li><strong>TECH</strong> – Technology, IT and Design</li>
+                  <li><strong>Other</strong> – Any remaining or unspecified series</li>
+                </ul>
+    
+                <h3>Data Source & Updates</h3>
+                <p>The data originates from Aalborg University’s <strong>Pure (VBN)</strong> research information system and is refreshed periodically. Updates made in Pure will be reflected each time the data is refreshed.</p>
+
+                <p style="margin-top: 20px;">
+                    <strong>For questions, feedback, or corrections, please contact:</strong> 
+                    <a href="mailto:aauopen@aau.dk" style="color: #211a52;">aauopen@aau.dk</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <label for="search-bar">Search</label>
+                <input type="text" id="search-bar" class="search-bar" placeholder="Title, author, keywords..." oninput="applyFilters()">
+            </div>
+
+            <div class="filter-section">
+                <label>Year Range</label>
+                <div class="slider-container">
+                    <div class="slider-range-display">
+                        <span id="min-year-display">2014</span>
+                        <span>—</span>
+                        <span id="max-year-display">2025</span>
+                    </div>
+                    <div id="year-slider" class="range-slider"></div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <label for="series-filter">Series</label>
+                <select id="series-filter" class="select-filter" onchange="applyFilters()">
+                    <option value="">All Series</option>
+                    <option value="SSH">SSH</option>
+                    <option value="ENG">ENG</option>
+                    <option value="HEALTH">HEALTH</option>
+                    <option value="TECH">TECH</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="filter-section">
+                <label for="supervisor-search">Supervisor</label>
+                <div class="supervisor-search-container">
+                    <input type="text" id="supervisor-search" class="supervisor-search" placeholder="Type to search..." oninput="filterSupervisors()">
+                    <div id="supervisor-suggestions" class="supervisor-suggestions"></div>
+                </div>
+                <div id="selected-supervisors"></div>
+            </div>
+
+            <div class="active-filters" id="active-filters">
+                <div class="active-filters-label">Active Keyword Filter:</div>
+                <div id="active-filter-display"></div>
+            </div>
+
+            <button class="btn btn-reset" onclick="resetFilters()">Reset All Filters</button>
+            <a href="https://vbn.aau.dk/themes/" target="_blank" class="btn btn-link">Explore other themes</a>
+        </aside>
+
+        <main class="content">
+            <div class="topic-section">
+                <div class="topic-header" onclick="toggleTopics()">
+                    <h2>🔍 Explore by Topic</h2>
+                    <span class="topic-toggle" id="topic-toggle">▼</span>
+                </div>
+                <div class="topic-container" id="topic-container">
+                    <div class="topic-search-container">
+                        <input type="text" id="topic-search" class="topic-search" placeholder="Search for any topic..." oninput="filterTopics()">
+                        <div id="topic-suggestions" class="topic-suggestions"></div>
+                    </div>
+                    <div class="active-topic-indicator" id="active-topic-indicator">
+                        <span class="active-topic-text">Active topic: <strong id="active-topic-name"></strong></span>
+                        <button class="clear-topic-btn" onclick="clearTopic()">Clear</button>
+                    </div>
+                    <div class="topic-cloud" id="topic-cloud"></div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-header" onclick="toggleChart()">
+                    <h2>Thesis Distribution by Year & Series</h2>
+                    <span class="chart-toggle" id="chart-toggle">▼</span>
+                </div>
+                <div class="chart-container" id="chart-container">
+                    <canvas id="thesis-bar-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="thesis-list" id="thesis-list"></div>
+
+            <div class="pagination">
+                <button onclick="prevPage()" id="prev-btn">← Previous</button>
+                <span class="page-info" id="page-info">Page 1</span>
+                <button onclick="nextPage()" id="next-btn">Next →</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+let itemsPerPage = 20;
+let currentPage = 1;
+let thesisData = [];
+let filteredData = [];
+let minYear, maxYear, yearRange;
+let barChartInstance = null;
+let allSupervisors = new Set();
+let selectedSupervisors = new Set();
+let activeKeywordFilter = null;
+let fileLastModified = null;
+let topTopics = [];
+let activeTopic = null;
+let allTopics = []; // Store all topics with counts
+let showingAllTopics = false;
+
+const seriesMapping = {
+    "": "Other",
+    "Ph.d.-serien for Det Humanistiske Fakultet, Aalborg Universitet": "SSH",
+    "Ph.d.-serien for Det Humanistiske og Samfundsvidenskabelige fakultet, Aalborg Universitet": "SSH",
+    "Ph.d.-serien for Det Ingeniør- og Naturvidenskabelige Fakultet, Aalborg Universitet": "ENG",
+    "Ph.d.-serien for Det Samfundsvidenskabelige Fakultet, Aalborg Universitet": "SSH",
+    "Ph.d.-serien for Det Sundhedsvidenskabelige Fakultet, Aalborg Universitet": "HEALTH",
+    "Ph.d.-serien for Det Teknisk-Naturvidenskabelige Fakultet, Aalborg Universitet": "ENG",
+    "Ph.d.-serien for Det Tekniske Fakultet for IT og Design, Aalborg Universitet": "TECH",
+    "PhD Series, Faculty of Engineering and Science, Aalborg University": "ENG",
+    "PhD Series, Technical Faculty of IT and Design, Aalborg University": "TECH",
+    "PhD Series, The Doctoral School of Social Sciences and Humanities, Aalborg University": "SSH",
+    "Aalborg Universitet. Det Humanistiske Fakultet. Ph.D.-Serien": "SSH",
+    "Aalborg Universitet. Det Samfundsvidenskabelige Fakultet. Ph.D.-Serien": "SSH",
+    "Aalborg Universitet. Det Sundhedsvidenskabelige Fakultet. Ph.D.-Serien": "HEALTH"
+};
+
+function loadTheses() {
+    const timestamp = new Date().getTime();
+    fetch(`AAUOPENTHESES_Version3.xlsx?v=${timestamp}`)
+        .then(response => {
+            fileLastModified = new Date(response.headers.get("last-modified") || Date.now());
+            return response.arrayBuffer();
+        })
+        .then(data => {
+            const workbook = XLSX.read(data, { type: 'array' });
+            const rawData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
+            
+            thesisData = rawData.slice(1).map(row => {
+                const keywords = row[9] ? String(row[9]).split("//").map(k => k.trim()).filter(k => k) : [];
+                const supervisors = row[11] ? String(row[11]).split("//").map(s => s.trim()).filter(s => s) : [];
+                
+                supervisors.forEach(sup => allSupervisors.add(sup));
+                
+                return {
+                    title: row[1] || "Unknown Title",
+                    subtitle: row[2] || null,
+                    author: row[3] || "Unknown Author",
+                    year: row[4] || "Unknown",
+                    series: row[5] || "Other",
+                    url: row[6] || "#",
+                    created: row[7] ? (row[7] instanceof Date ? row[7] : new Date(row[7])) : null,
+                    doi: row[8] || null,
+                    keywords: keywords,
+                    orcid: row[10] || null,
+                    supervisors: supervisors
+                };
+            });
+            
+            thesisData.sort((a, b) => {
+                if (b.created && a.created) return b.created - a.created;
+                if (b.created) return 1;
+                if (a.created) return -1;
+                return (parseInt(b.year) || 0) - (parseInt(a.year) || 0);
+            });
+            
+            thesisData.forEach((thesis, idx) => {
+                thesis.isNew = idx < 25;
+                const seriesStr = thesis.series ? String(thesis.series).trim() : "";
+                thesis.series = seriesMapping[seriesStr] || "Other";
+            });
+            
+            const years = thesisData.map(t => parseInt(t.year)).filter(y => !isNaN(y) && y > 1900 && y < 2100);
+            minYear = Math.min(...years);
+            maxYear = Math.max(...years);
+            yearRange = [2014, maxYear];
+            
+            if (isNaN(minYear) || isNaN(maxYear) || minYear > maxYear) {
+                minYear = 2014;
+                maxYear = 2025;
+            }
+            
+            setupYearSlider(minYear, maxYear);
+            updateDataRefreshIndicator();
+            applyFilters();  // This will call extractTopics internally now
+            setTimeout(() => createBarChart(filteredData), 10);
+        });
+}
+
+function setupYearSlider(min, max) {
+    const slider = document.getElementById("year-slider");
+    noUiSlider.create(slider, {
+        start: [2014, max],
+        connect: true,
+        range: { min: min, max: max },
+        step: 1,
+        format: { to: v => Math.round(v), from: v => Math.round(v) }
+    });
+    
+    slider.noUiSlider.on("update", values => {
+        yearRange = values.map(v => Math.round(v));
+        document.getElementById("min-year-display").textContent = yearRange[0];
+        document.getElementById("max-year-display").textContent = yearRange[1];
+        applyFilters();
+    });
+}
+
+function extractTopics(dataSource = null) {
+    // Use filtered data if provided, otherwise use all data
+    const sourceData = dataSource || thesisData;
+    
+    // Normalize keywords: case-insensitive grouping
+    const keywordCounts = {};
+    const keywordOriginal = {}; // Store original casing
+    
+    sourceData.forEach(thesis => {
+        thesis.keywords.forEach(keyword => {
+            const normalized = keyword.toLowerCase();
+            keywordCounts[normalized] = (keywordCounts[normalized] || 0) + 1;
+            // Keep the most common casing
+            if (!keywordOriginal[normalized] || keywordCounts[normalized] === 1) {
+                keywordOriginal[normalized] = keyword;
+            }
+        });
+    });
+    
+    // Create list with original casing
+    allTopics = Object.entries(keywordCounts)
+        .map(([normalized, count]) => ({ 
+            keyword: keywordOriginal[normalized], 
+            normalized: normalized,
+            count 
+        }))
+        .sort((a, b) => b.count - a.count);
+    
+    renderTopics();
+}
+
+function renderTopics() {
+    const cloud = document.getElementById("topic-cloud");
+    if (allTopics.length === 0) {
+        cloud.innerHTML = '<p style="color:#666;">No topics available</p>';
+        return;
+    }
+    
+    // Show top 20 by default, or all if button clicked
+    const displayTopics = showingAllTopics ? allTopics : allTopics.slice(0, 20);
+    const maxCount = displayTopics[0].count;
+    const minCount = displayTopics[displayTopics.length - 1].count;
+    
+    let html = displayTopics.map(({ keyword, normalized, count }) => {
+        let sizeClass = 'size-small';
+        const ratio = (count - minCount) / (maxCount - minCount);
+        if (ratio > 0.66) sizeClass = 'size-large';
+        else if (ratio > 0.33) sizeClass = 'size-medium';
+        
+        const activeClass = activeTopic && activeTopic.toLowerCase() === normalized ? 'active' : '';
+        return `<span class="topic-bubble ${sizeClass} ${activeClass}" onclick="toggleTopic('${keyword.replace(/'/g, "\\'")}')">
+            ${keyword}<span class="bubble-count">(${count})</span>
+        </span>`;
+    }).join('');
+    
+    // Add "Show more" button if not showing all
+    if (!showingAllTopics && allTopics.length > 20) {
+        html += `<button class="show-more-topics-btn" onclick="showAllTopics()">
+            Show all ${allTopics.length} topics
+        </button>`;
+    } else if (showingAllTopics) {
+        html += `<button class="show-more-topics-btn" onclick="showFewerTopics()">
+            Show fewer topics
+        </button>`;
+    }
+    
+    cloud.innerHTML = html;
+}
+
+function showAllTopics() {
+    showingAllTopics = true;
+    renderTopics();
+}
+
+function showFewerTopics() {
+    showingAllTopics = false;
+    renderTopics();
+    document.getElementById("topic-container").scrollIntoView({ behavior: 'smooth' });
+}
+
+function filterTopics() {
+    const query = document.getElementById("topic-search").value.toLowerCase();
+    const suggestions = document.getElementById("topic-suggestions");
+    
+    if (!query) {
+        suggestions.classList.remove("show");
+        return;
+    }
+    
+    const matches = allTopics
+        .filter(t => t.normalized.includes(query))
+        .slice(0, 10);
+    
+    if (matches.length > 0) {
+        suggestions.innerHTML = matches.map(t => 
+            `<div class="topic-suggestion" onclick="selectTopic('${t.keyword.replace(/'/g, "\\'")}')">
+                <span>${t.keyword}</span>
+                <span class="topic-count-badge">${t.count}</span>
+            </div>`
+        ).join("");
+        suggestions.classList.add("show");
+    } else {
+        suggestions.classList.remove("show");
+    }
+}
+
+function selectTopic(topic) {
+    document.getElementById("topic-search").value = "";
+    document.getElementById("topic-suggestions").classList.remove("show");
+    toggleTopic(topic);
+}
+
+function toggleTopic(topic) {
+    if (activeTopic && activeTopic.toLowerCase() === topic.toLowerCase()) {
+        activeTopic = null;
+    } else {
+        activeTopic = topic;
+    }
+    updateActiveTopicIndicator();
+    renderTopics();
+    applyFilters();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function clearTopic() {
+    activeTopic = null;
+    updateActiveTopicIndicator();
+    renderTopics();
+    applyFilters();
+}
+
+function updateActiveTopicIndicator() {
+    const indicator = document.getElementById("active-topic-indicator");
+    const nameElement = document.getElementById("active-topic-name");
+    
+    if (activeTopic) {
+        nameElement.textContent = activeTopic;
+        indicator.classList.add("show");
+    } else {
+        indicator.classList.remove("show");
+    }
+}
+
+function toggleTopics() {
+    const container = document.getElementById("topic-container");
+    const toggle = document.getElementById("topic-toggle");
+    container.classList.toggle("collapsed");
+    toggle.classList.toggle("collapsed");
+}
+
+// Update resetFilters to include topic search
+function resetFilters() {
+    document.getElementById("series-filter").value = "";
+    document.getElementById("year-slider").noUiSlider.set([2014, maxYear]);
+    document.getElementById("search-bar").value = "";
+    document.getElementById("topic-search").value = "";
+    selectedSupervisors.clear();
+    activeKeywordFilter = null;
+    activeTopic = null;
+    showingAllTopics = false;
+    updateSupervisorTags();
+    updateActiveFilterDisplay();
+    updateActiveTopicIndicator();
+    renderTopics();
+    applyFilters();
+}
+
+// Add click handler to close topic suggestions
+window.onclick = e => {
+    if (e.target == document.getElementById("info-modal")) closeInfo();
+    if (e.target != document.getElementById("supervisor-search")) {
+        document.getElementById("supervisor-suggestions").classList.remove("show");
+    }
+    if (e.target != document.getElementById("topic-search")) {
+        document.getElementById("topic-suggestions").classList.remove("show");
+    }
+};
+
+function createBarChart(data) {
+    const ctx = document.getElementById("thesis-bar-chart").getContext("2d");
+    const years = data.map(t => parseInt(t.year)).filter(y => !isNaN(y));
+    const minY = Math.min(...years);
+    const maxY = Math.max(...years);
+    
+    const counts = {};
+    for (let y = minY; y <= maxY; y++) {
+        counts[y] = { SSH: 0, TECH: 0, ENG: 0, HEALTH: 0, Other: 0 };
+    }
+    
+    data.forEach(t => {
+        const y = parseInt(t.year);
+        if (!isNaN(y) && counts[y]) counts[y][t.series]++;
+    });
+    
+    const filteredYears = Object.keys(counts).filter(y => 
+        Object.values(counts[y]).some(c => c > 0)
+    );
+    
+    const colors = {
+        SSH: "#2C4991",
+        TECH: "#1F3471",
+        ENG: "#535254",
+        HEALTH: "#A22226",
+        Other: "#007FA3"
+    };
+    
+    const datasets = ["SSH", "TECH", "ENG", "HEALTH", "Other"].map(s => ({
+        label: s,
+        data: filteredYears.map(y => counts[y][s]),
+        backgroundColor: colors[s]
+    }));
+    
+    if (barChartInstance) {
+        barChartInstance.data.labels = filteredYears;
+        barChartInstance.data.datasets = datasets;
+        barChartInstance.update();
+    } else {
+        barChartInstance = new Chart(ctx, {
+            type: "bar",
+            data: { labels: filteredYears, datasets: datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                aspectRatio: 3.5,
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true, beginAtZero: true }
+                }
+            }
+        });
+    }
+}
+
+function filterSupervisors() {
+    const query = document.getElementById("supervisor-search").value.toLowerCase();
+    const suggestions = document.getElementById("supervisor-suggestions");
+    
+    if (!query) {
+        suggestions.classList.remove("show");
+        return;
+    }
+    
+    const matches = Array.from(allSupervisors)
+        .filter(s => s.toLowerCase().includes(query))
+        .sort()
+        .slice(0, 10);
+    
+    if (matches.length > 0) {
+        suggestions.innerHTML = matches.map(s => 
+            `<div class="supervisor-suggestion" onclick="selectSupervisor('${s.replace(/'/g, "\\'")}')">${s}</div>`
+        ).join("");
+        suggestions.classList.add("show");
+    } else {
+        suggestions.classList.remove("show");
+    }
+}
+
+function selectSupervisor(name) {
+    selectedSupervisors.add(name);
+    document.getElementById("supervisor-search").value = "";
+    document.getElementById("supervisor-suggestions").classList.remove("show");
+    updateSupervisorTags();
+    applyFilters();
+}
+
+function removeSupervisor(name) {
+    selectedSupervisors.delete(name);
+    updateSupervisorTags();
+    applyFilters();
+}
+
+function updateSupervisorTags() {
+    const container = document.getElementById("selected-supervisors");
+    container.innerHTML = Array.from(selectedSupervisors).map(s => 
+        `<span class="supervisor-tag">${s}<span class="supervisor-tag-close" onclick="removeSupervisor('${s.replace(/'/g, "\\'")}')">&times;</span></span>`
+    ).join("");
+}
+
+function applyFilters() {
+    const searchQuery = document.getElementById("search-bar").value.toLowerCase();
+    const seriesFilter = document.getElementById("series-filter").value;
+    
+    filteredData = thesisData.filter(thesis => {
+        const year = parseInt(thesis.year) || 0;
+        const matchesYear = year >= yearRange[0] && year <= yearRange[1];
+        const matchesSeries = !seriesFilter || thesis.series === seriesFilter;
+        const matchesSupervisor = selectedSupervisors.size === 0 || thesis.supervisors.some(s => selectedSupervisors.has(s));
+        const matchesKeyword = !activeKeywordFilter || thesis.keywords.includes(activeKeywordFilter);
+        const matchesTopic = !activeTopic || 
+            thesis.title.toLowerCase().includes(activeTopic.toLowerCase()) ||
+            (thesis.subtitle && thesis.subtitle.toLowerCase().includes(activeTopic.toLowerCase())) ||
+            thesis.keywords.some(k => k.toLowerCase().includes(activeTopic.toLowerCase()));
+        const matchesSearch = !searchQuery || 
+            thesis.title.toLowerCase().includes(searchQuery) ||
+            (thesis.subtitle && thesis.subtitle.toLowerCase().includes(searchQuery)) ||
+            thesis.author.toLowerCase().includes(searchQuery) ||
+            thesis.keywords.some(k => k.toLowerCase().includes(searchQuery));
+        
+        return matchesYear && matchesSeries && matchesSupervisor && matchesKeyword && matchesTopic && matchesSearch;
+    });
+    
+    currentPage = 1;
+    displayTheses();
+    updateCounter(filteredData.length);
+    createBarChart(filteredData);
+    updateActiveFilterDisplay();
+    extractTopics(filteredData);
+}
+
+function displayTheses() {
+    const list = document.getElementById("thesis-list");
+    const start = (currentPage - 1) * itemsPerPage;
+    
+    list.innerHTML = "";
+    
+    filteredData.slice(start, start + itemsPerPage).forEach(thesis => {
+        const card = document.createElement("div");
+        card.className = `thesis-card ${thesis.series.toLowerCase()}-card`;
+        
+        const uuid = thesis.url.split("/").pop();
+        const thesisUrl = `https://vbn.aau.dk/en/publications/${uuid}`;
+        
+        let linksHTML = '<div class="external-links">';
+        if (thesis.doi) {
+            linksHTML += `<a href="https://doi.org/${thesis.doi}" target="_blank" class="external-link"><svg fill="currentColor" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>DOI</a>`;
+        }
+        if (thesis.orcid) {
+            linksHTML += `<a href="https://orcid.org/${thesis.orcid}" target="_blank" class="external-link"><img src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" alt="ORCID">ORCID</a>`;
+        }
+        linksHTML += "</div>";
+        
+        let keywordsHTML = "";
+        if (thesis.keywords.length > 0) {
+            const visible = thesis.keywords.slice(0, 3);
+            const hidden = thesis.keywords.slice(3);
+            keywordsHTML = `<div class="keywords-section"><div class="keywords-title">Keywords:</div><div class="keywords-container">`;
+            keywordsHTML += visible.map(k => `<span class="keyword-tag" onclick="filterByKeyword('${k.replace(/'/g, "\\'")}');">${k}</span>`).join("");
+            if (hidden.length > 0) {
+                keywordsHTML += `<span class="show-more-keywords" onclick="expandKeywords(this, ${thesis.keywords.indexOf(hidden[0])});" data-thesis-id="${start + filteredData.indexOf(thesis)}">+${hidden.length} more</span>`;
+            }
+            keywordsHTML += `</div></div>`;
+        }
+        
+        let supervisorsHTML = "";
+        if (thesis.supervisors.length > 0) {
+            const supList = thesis.supervisors.map(s => `<span class="supervisor-item">${s}</span>`).join("");
+            supervisorsHTML = `<div class="supervisors-section"><span class="supervisors-label">Supervisors:</span> ${supList}</div>`;
+        }
+        
+        card.innerHTML = `
+            ${thesis.isNew ? '<span class="new-badge">New</span>' : ""}
+            <div class="thesis-title">${thesis.title}${thesis.subtitle ? ': ' + thesis.subtitle : ''}</div>
+            <div class="thesis-info"><span class="thesis-info-label">Author:</span> ${thesis.author}</div>
+            <div class="thesis-info"><span class="thesis-info-label">Year:</span> ${thesis.year}</div>
+            <div class="thesis-info"><span class="thesis-info-label">Series:</span> ${thesis.series}</div>
+            ${linksHTML}
+            ${keywordsHTML}
+            ${supervisorsHTML}
+            <a href="${thesisUrl}" target="_blank" class="read-more-btn">View Thesis</a>
+        `;
+        
+        list.appendChild(card);
+    });
+    
+    updatePagination();
+}
+
+function updatePagination() {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    document.getElementById("page-info").textContent = `Page ${currentPage} of ${totalPages || 1}`;
+    document.getElementById("prev-btn").disabled = currentPage === 1;
+    document.getElementById("next-btn").disabled = currentPage === totalPages || totalPages === 0;
+}
+
+function nextPage() {
+    if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+        currentPage++;
+        displayTheses();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayTheses();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+}
+
+function toggleChart() {
+    const container = document.getElementById("chart-container");
+    const toggle = document.getElementById("chart-toggle");
+    container.classList.toggle("collapsed");
+    toggle.classList.toggle("collapsed");
+}
+
+function showInfo() {
+    document.getElementById("info-modal").classList.add("show");
+}
+
+function closeInfo() {
+    document.getElementById("info-modal").classList.remove("show");
+}
+
+function resetFilters() {
+    document.getElementById("series-filter").value = "";
+    document.getElementById("year-slider").noUiSlider.set([2014, maxYear]);
+    document.getElementById("search-bar").value = "";
+    selectedSupervisors.clear();
+    activeKeywordFilter = null;
+    activeTopic = null;
+    updateSupervisorTags();
+    updateActiveFilterDisplay();
+    renderTopics();
+    applyFilters();
+}
+
+function filterByKeyword(keyword) {
+    activeKeywordFilter = keyword;
+    applyFilters();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateActiveFilterDisplay() {
+    const container = document.getElementById("active-filters");
+    const display = document.getElementById("active-filter-display");
+    
+    if (activeKeywordFilter) {
+        display.innerHTML = `<span class="active-filter-tag" onclick="activeKeywordFilter=null;applyFilters();">${activeKeywordFilter} <span class="filter-remove">×</span></span>`;
+        container.classList.add("show");
+    } else {
+        display.innerHTML = "";
+        container.classList.remove("show");
+    }
+}
+
+function updateDataRefreshIndicator() {
+    const indicator = document.getElementById("data-updated");
+    if (fileLastModified) {
+        const dateStr = fileLastModified.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        });
+        indicator.textContent = `Data updated: ${dateStr}`;
+    }
+}
+
+function updateCounter(count) {
+    document.getElementById("thesis-counter").textContent = `${count} Theses`;
+}
+
+function expandKeywords(element, startIdx) {
+    const card = element.closest('.thesis-card');
+    const container = element.closest('.keywords-container');
+    const cardIndex = Array.from(document.querySelectorAll('.thesis-card')).indexOf(card);
+    const thesis = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)[cardIndex];
+    
+    if (thesis) {
+        const hiddenKeywords = thesis.keywords.slice(3);
+        hiddenKeywords.forEach(keyword => {
+            const tag = document.createElement('span');
+            tag.className = 'keyword-tag';
+            tag.textContent = keyword;
+            tag.onclick = () => filterByKeyword(keyword);
+            container.insertBefore(tag, element);
+        });
+        element.remove();
+    }
+}
+
+window.onload = loadTheses;
+window.onclick = e => {
+    if (e.target == document.getElementById("info-modal")) closeInfo();
+    if (e.target != document.getElementById("supervisor-search")) {
+        document.getElementById("supervisor-suggestions").classList.remove("show");
+    }
+};
+    </script>
+</body>
+</html>
